@@ -482,7 +482,8 @@ if your_prompt:
     save_prompt = {"id":str(st.session_state.chat_history["id"])+"_"+str(order),"values":your_prompt_vec,"metadata":{"chat_id":st.session_state.chat_history["id"],"order":order,"role":"user","text":your_prompt}}
 
     data = get_from_index(your_prompt_vec,filter=filter)
-    data = cohere_rerank(your_prompt, data,20)
+    if len(data) > 0:
+        data = cohere_rerank(your_prompt, data,15)
     
     if len(st.session_state.selected_style_docs.keys())>0:
         filter_style = get_filter_id([doc for doc in st.session_state.selected_style_docs.keys() ])
